@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Xvfbwrapper : Python wrapper for Xvfb" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Xvfbwrapper</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/cgoldberg/xvfbwrapper">View on GitHub</a>
+
+          <h1 id="project_title">Xvfbwrapper</h1>
+          <h2 id="project_tagline">Python wrapper for Xvfb</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/cgoldberg/xvfbwrapper/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/cgoldberg/xvfbwrapper/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>xvfbwrapper</h1>
+
+<p>Python wrapper for running display inside X virtual framebuffer (Xvfb)</p>
+
+<hr><h3>Requires:</h3>
+
+<ul>
+<li>Xvfb ('sudo apt-get install xvfb' or similar)</li>
+</ul><hr><h3>Example:</h3>
+
+<pre><code>from xvfbwrapper import Xvfb
+
+vdisplay = Xvfb()
+vdisplay.start()
+
+# launch stuff inside virtual display here
+
+vdisplay.stop()
+</code></pre>
+
+<hr><h3>Example: headless Selenium WebDriver and Firefox:</h3>
+
+<pre><code>from xvfbwrapper import Xvfb
+
+import unittest
+from selenium import webdriver
+
+
+class TestUbuntuHomepage(unittest.TestCase):
+    def setUp(self):
+        self.vdisplay = Xvfb(width=1280, height=720)
+        self.vdisplay.start()
+        self.browser = webdriver.Firefox()
+
+    def testTitle(self):
+        self.browser.get('http://www.ubuntu.com')
+        self.assertIn('Ubuntu', self.browser.title)
+
+    def tearDown(self):
+        self.browser.quit()
+        self.vdisplay.stop()
+
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)
+</code></pre>
+
+<ul>
+<li>Firefox will launch inside virtual display (headless)</li>
+<li>browser is not shown while test is run</li>
+</ul><hr><h3>pip install latest dev branch from git repo:</h3>
+
+<pre><code>pip install -e git+http://github.com/cgoldberg/xvfbwrapper.git#egg=xvfbwrapper
+</code></pre>
+
+<hr>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Xvfbwrapper maintained by <a href="https://github.com/cgoldberg">cgoldberg</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
